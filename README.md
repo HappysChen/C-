@@ -1,6 +1,6 @@
 # C-
 关于C++学习的笔记
-1、类模板
+一、类模板
 语法：template<class typename>:例如：template<class T>
 类模板在类中的使用：
 template<class T>
@@ -19,7 +19,7 @@ template<T>person::person(int A,string B)
   this->b=B;
 }
 
-模板的使用：有三种
+二、模板的使用：有三种
 1、指定类型传入
   person<int ,string>P(17,"huan");
 2、参数模板化
@@ -30,3 +30,7 @@ void test(person<T1,T2>&p)
 3、整个类模板化
 template<class T>
 void test(T&p)
+三、查看类模板的类型
+  用typeid().函数来查看类型
+  例如查看T1中的类型：
+  typeid(T1).name()
