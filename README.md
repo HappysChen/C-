@@ -30,7 +30,15 @@ void test(person<T1,T2>&p)
 3、整个类模板化
 template<class T>
 void test(T&p)
-三、查看类模板的类型
+三、查看类模板的类型(小知识点)
   用typeid().函数来查看类型
   例如查看T1中的类型：
   typeid(T1).name()
+四、成员函数类外实现
+  template<class T1,class T2>
+  void person<T1,T2>::test()
+  {}
+ 五、类模板的分文件编写
+  1、直接包含源文件（包含cpp）
+  2、将.h和.cpp写在一起，文件后缀改为.hpp，使用时直接包含.hpp文件
+  
