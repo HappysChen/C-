@@ -21,7 +21,7 @@ template<T>person::person(int A,string B)
 
 二、模板的使用：有三种
 1、指定类型传入
-  person<int ,string>P(17,"huan");
+person<int ,string>P(17,"huan");
 2、参数模板化
 template<class T1,class T2>
 void test(person<int,string>&p)
@@ -38,7 +38,35 @@ void test(T&p)
   template<class T1,class T2>
   void person<T1,T2>::test()
   {}
- 五、类模板的分文件编写
+五、类模板的分文件编写
   1、直接包含源文件（包含cpp）
   2、将.h和.cpp写在一起，文件后缀改为.hpp，使用时直接包含.hpp文件
-  
+六、类模板与友元
+  友元在类模板中的实现，有两种：
+  1、类内实现：
+     直接在类内和public域之前声明和定义：
+     例如：template<class T1,class T2>
+           class person
+           {
+            friend void show(person<T1,T2>p)
+            {
+              //实现语句
+             }
+            public:
+            private:
+           };
+  2、类外实现：
+     类外实现要复杂些,例如：
+     class person;
+     template<class T1,class T2>
+     friend void show2(person<T1,T2>p) //全局函数，不用加作用域
+      {
+              //实现语句
+      }
+     template<class T1,class T2>
+     class person 
+     {
+      friend void show2(person<T1,T2>p);
+      public:
+      private:
+     };
