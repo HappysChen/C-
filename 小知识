@@ -1,0 +1,16 @@
+一、野指针的避免：
+如在析构函数内进行空间释放中：
+if (this->Aarry != NULL)
+		{
+			delete[]this->Aarry;
+			this->Aarry = NULL;//防止野指针
+		}
+		this->m_capacity = 0;//初始化
+		this->m_Size = 0;//初始化
+二、深拷贝
+使原数组指向一个新开辟的空间，然后再将新数组的数据传入到原数组中
+this->Aarry = new T[arr.m_capacity];//开辟新的堆区
+		for (int i = 0; i < this->m_Size; i++)
+		{
+			this->Aarry[i] = arr.Aarry[i];//将值交换
+		}
