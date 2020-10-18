@@ -18,6 +18,16 @@ template<T>person::person(int A,string B)
   this->a=A;
   this->b=B;
 }
+  //重载符函数的定义
+  声明：Stack &operator=(const Stack&st);//重载符号
+  定义：
+template<class T>
+Stack<T>& Stack<T> ::operator=(const Stack&st)//重载符号
+{
+  
+}
+总结：
+  发现在类模板中，定义函数时，必须要将类名后加<typename>(即模板名).
 
 二、模板的使用：有三种
 1、指定类型传入
