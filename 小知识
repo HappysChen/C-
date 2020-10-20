@@ -1,19 +1,19 @@
 一、野指针的避免：
 如在析构函数内进行空间释放中：
-if (this->Aarry != NULL)
-		{
-			delete[]this->Aarry;
-			this->Aarry = NULL;//防止野指针
-		}
-		this->m_capacity = 0;//初始化
-		this->m_Size = 0;//初始化
+        if (this->Aarry != NULL)
+	{
+	 delete[]this->Aarry;
+	 this->Aarry = NULL;//防止野指针
+	}
+	this->m_capacity = 0;//初始化
+	this->m_Size = 0;//初始化
 二、深拷贝
 使原数组指向一个新开辟的空间，然后再将新数组的数据传入到原数组中
-this->Aarry = new T[arr.m_capacity];//开辟新的堆区
-		for (int i = 0; i < this->m_Size; i++)
-		{
-			this->Aarry[i] = arr.Aarry[i];//将值交换
-		}
+    this->Aarry = new T[arr.m_capacity];//开辟新的堆区
+	for (int i = 0; i < this->m_Size; i++)
+	{
+	  this->Aarry[i] = arr.Aarry[i];//将值交换
+	}
 三、getline的用法
   getline()是C++的标准库函数，getline会生成一个包含一串从输入流读入的字符的字符串，
   直到以下情况发生会导致生成的此字符串结束：1）到文件结束(文件尾标志符：EOF)，2）遇到函数的定界符，3）输入达到最大限度。
@@ -24,6 +24,7 @@ getline(<字符数组chs>，<读取字符的个数n>，<终止符>)
 还可以：
 string temp;
 getline(cin,temp);
+
 四、关于while的小小收获
    while(cin>>n>>m)
    {} //该语句是说明n和m可以连续输入，从而可以在窗口那一直输入，
