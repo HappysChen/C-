@@ -10,23 +10,23 @@
 令其为Err=DBL_MAx ,但头文件中必须包含有<cfloat>
     问题例子：当求一式子，分母的两个变量是互为相反数：    
     try
-		{
-			z = heam(n, m);
-		}
-		catch(const char *s)
-		{
-			cout << s << endl;
-			cout << "you enter a error member!  " << endl;
-			continue;
-		}
+     {
+	z = heam(n, m);
+     }
+    catch(const char *s)
+      {
+	cout << s << endl;//将heam中的throw传递给s，然后打印出来，执行到continue时，又将回到循环语句条件前
+	cout << "you enter a error member!  " << endl;
+	continue;
+      }
     
    double heam(double a,double b)
    {
       if (a == -b)
         {
           //cout << "you enter error data!" << endl;
-          //throw"you enter error data!";//或者调用abort()
-          abort();//一旦出现异常，则立即结束程序
+          throw"you enter error data!";//或者调用abort()
+          //abort();//一旦出现异常，则立即结束程序
         }
       return 0.2*a * b / (a + b);
    }
