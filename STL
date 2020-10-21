@@ -1,0 +1,18 @@
+一、stack 栈
+  简概：栈是一种”先进后出“的数据结构，只有一个出口，用push进行压栈和pop进行出栈
+在C++中使用栈，需要包含头文件 stack,同时还要包含使用哪种容器作为底层容器。
+例如：使用list作为底层容器
+#include<list>
+#include<stack>
+....
+
+使用：
+  stack<int,list<int>>istack;//
+  istack.push(元素)；//压栈
+  istack.pop();//出栈
+  istack.top();//将栈顶输出
+  istack.size();//求出栈的大小
+  
+相比C中，使用栈更加方便，程序更加简便  
+  
+
