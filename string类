@@ -1,0 +1,13 @@
+一、string类
+   string类是由头文件string和cstring提供支持的，其中包含了多种构造函数；
+   string(const char *s);//s指向NBTS(空字符结束的字符串)
+   string(size_type n,char c);//包含n个元素的string对象，都被初始化为字符c
+   string(const string &str);
+   string();//长度为0
+   string(const char*s,size_type n);//将S指向NBTs的前n个字符
+   template<class Iter>
+   string(Iter begin,Iter end);//将string对象初始化为区间[begin,end)内的字符，不包括end
+   
+   
+   
+   
