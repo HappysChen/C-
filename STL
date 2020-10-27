@@ -68,6 +68,55 @@ reserve(int len)--预留len个空间，使用在数据比较大时;
   deque.size()//vector也有，返回容器中元素的大小
   deque.resize(num)//重新指定容器的大小为num
   deque.resize(num，elem)//重新指定容器的大小为num,若容器变长，则以num值填充新位置，若变小，则删除末尾的元素
+  push_back()--尾插
+  push_front()--头部插
+  pop_back()--删除容器最后一个数据
+  pop_front()--删除第一个数据
+  
+  insert(pos,elem);
+  insert(pos,n,elem);
+  insert(pos,begin(),end());在pos位置插入区间[begin,end)的数据
+  
+  AAAA案例：
+void Mark(vector<person>&v)
+{
+	//int Score=0;
+	//deque<int>d;//不能在这里声明，因为每次调用Mark函数时，d都会重新开辟空间，而原来的数据没有释放
+	//cout << "分别输入5名选手的分数： " << endl;
+	for (vector <person>::iterator vt = v.begin(); vt != v.end(); vt++)
+	{
+		deque<int>d;//必须在这里声明，这样p才会重新开辟空间属于vt当前所指向的选手
+		cout << vt->m_Name << " 打分： " << endl;
+		for(int i=0;i<10;i++)
+		{ 
+			//cin >> Score;
+			int mScore = rand() % 41 + 60;//60~100
+			d.push_back(mScore);
+		}
+                for (deque<int>::iterator de = d.begin(); de!= d.end(); de++)
+		{
+			cout<<*de<<" ";
+		}
+		cout << endl;
+
+		sort(d.begin(),d.end());//排序
+		int num = 0;
+		d.pop_back();//去掉最高分
+		d.pop_front();//去掉最低分
+		//不用删除函数
+                //d.erase(d.begin());
+		//d.erase(d.end());
+		for (deque<int>::iterator de = d.begin(); de != d.end(); de++)
+		{
+			num += *de;
+		}
+		//Score = num / mem;
+		int Score = num / d.size();
+		vt->m_Score = Score;//可以用容器直接访问类中的成员，因为vt就是vector<person>，因此可以截取到m_Score进行赋值
+		
+	}
+}
+  
   
  四、list
    list 是一个双向链表，具备前移、后移的能力，在插入操作、接合操作都不会造成原有的list失效;
