@@ -93,6 +93,7 @@ void Mark(vector<person>&v)
 			int mScore = rand() % 41 + 60;//60~100
 			d.push_back(mScore);
 		}
+		//测试代码
                 for (deque<int>::iterator de = d.begin(); de!= d.end(); de++)
 		{
 			cout<<*de<<" ";
