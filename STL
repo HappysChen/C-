@@ -77,11 +77,12 @@ reserve(int len)--预留len个空间，使用在数据比较大时;
   insert(pos,n,elem);
   insert(pos,begin(),end());在pos位置插入区间[begin,end)的数据
   
-  AAAA案例：
+  AAAA级别案例：
 void Mark(vector<person>&v)
 {
 	//int Score=0;
 	//deque<int>d;//不能在这里声明，因为每次调用Mark函数时，d都会重新开辟空间，而原来的数据没有释放
+	              //新的数据会在原来的空间上继续存放，所以会导致，每个选手的打分次数不一样
 	//cout << "分别输入5名选手的分数： " << endl;
 	for (vector <person>::iterator vt = v.begin(); vt != v.end(); vt++)
 	{
@@ -117,7 +118,8 @@ void Mark(vector<person>&v)
 		
 	}
 }
-  
+  copy()函数： copy (myints, myints+7, myvector.begin());
+              //myints是数组myints的第一个元素，myints+7是最后一个元素，将之间的元素放在vector定义的容器：myvector中
   
  四、list
    list 是一个双向链表，具备前移、后移的能力，在插入操作、接合操作都不会造成原有的list失效;
@@ -136,4 +138,9 @@ merge()//单个参数，合并
 reverse(),//逆序
 sort()//无参数 排序
 transfer()//三个参数  迁移
+
+五、queue
+
+
+
 
