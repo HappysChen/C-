@@ -180,7 +180,75 @@ resize();//重新定义容器的大小;如果空间比原来的大，则多出�
  如果是一个类的类型，则只将类压入队列中即可；其他接口使用方法不变；
 
  B、关联式
- 
+ 一、set
+ 1、set中所有的元素会自动排序，而且不允许有相同的元素，只能出现一次，因此每个元素出现的个数都是1；
+ 插入数据不用push而是用insert；
+ 用count(elem)来算出元素为elem的个数;
+ 也有交换swap函数，删除函数erase，
+ ...
+ 2、set 和multiset的区别：set在插入数据时，对于插入重复的数据会返回一个false的值，
+ 如：
+ set<int>s;
+ pair<set<int>::iterator,bool> ret=s.insert(10);
+ pair表示对组，即成队出现;
+ 使用：pair<string,int>p(string("Chen")20);//或者pair<string,int>p=make_pair("Chen",20);
+ cout<<"姓名："<<p.first<<"年龄："<<p.second<<endl;
+ 而multiset不管重复插入多少次都不会报错，而且会插入成功；
+3、改变set的排序
+不管数据类型是内置指定的，还是自定义的，都需要用到仿函数来实现改变排序的顺序，自定义类型必须要用仿函数来实现
+内置指定类型：
+class compare
+{
+public:
+	bool operator()(int v1,int v2)//重载()//类型要看set设定的类型，保持一致
+	{
+		return v1 > v2;
+	}
 
+};
+使用：
+void changeSort()
+{
+	set<int, compare>st2;
+	//在插入之前，先定义好排序的顺序，用仿函数来实现
+	st2.insert(10);
+	st2.insert(20);
+	st2.insert(50);
+	st2.insert(30);
+	for (set<int, compare>::iterator iset = st2.begin(); iset != st2.end(); iset++)
+	{
+		cout << (*iset) << " ";
+	}
+	cout << endl;
+
+}
+自定义类型：
+class Compare  
+{
+public:
+	bool operator()(const person&p1, const person&p2)  //重载()
+	{
+		return p1.age > p2.age;
+	}
+};
+使用：
+void changeSort2()
+{
+	set<person, Compare>s;
+	person p1("张飞",35);
+	person p2("刘备", 45);
+	person p3("关羽", 55);
+	person p4("曹操", 25);
+	s.insert(p1);
+	s.insert(p2);
+	s.insert(p3);
+	s.insert(p4);
+
+	for (set<person, Compare>::iterator iset = s.begin(); iset != s.end(); iset++)
+	{
+		cout <<"姓名：" <<(*iset).name<<" 年龄 ：" <<(*iset).age<< endl;
+	}
+	
+}
 
 
