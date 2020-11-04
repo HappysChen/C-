@@ -251,12 +251,38 @@ void changeSort2()
 	}	
 }
 二、map
-   map容器元素根据键值自动排序，而且所有元素都是pair，pair中的第一个元素为key(键值)，起到索引的作用，第二个是value(实值)；
+   1、map容器元素根据键值自动排序，而且所有元素都是pair，pair中的第一个元素为key(键值)，起到索引的作用，第二个是value(实值)；
    同时，map也不可以重复插入，不可以修改map的键值；
-
-
-
-
-
+   插入值需要用到pair来进行，
+   pair<int, int>p1(2, 40);
+   m1.insert(p1);
+   或：m1.insert(make_pair(7,70));
+   //查找
+   map<int, int>::iterator ite = m1.find(7);
+	if (ite != m1.end())
+	{
+		cout << "找到元素：键值为：" << (*ite).first << " 实值：" << ite->second << endl;
+	}
+	else
+	{
+		cout << "找不到元素：" << endl;
+	}
+	//计数
+	int num = m1.count(7);
+    2、排序
+    改变map默认的排序顺序，则需要用到仿函数
+       class Compare
+	{
+	public:
+		bool operator()(int v1,int v2)
+		{
+			return v1 > v2;
+		}
+	};
+    map<int, int, Compare>m1;//Compare是仿函数
+    for (map<int, int,Compare>::iterator im = m1.begin(); im != m1.end(); im++)
+	{
+		cout << " 第一个值：--键值 ：" << (*im).first << " 第二个值：--实值：" << im->second << endl;
+	}
 
 
