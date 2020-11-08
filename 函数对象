@@ -33,6 +33,22 @@ class Compare
 };
 使用：sort(v.begin(),v.end(),Compare());
 
+内建函数对象
+   内建函数对象是指：STL中已经建立好的，可直接调用，但要包含头文件：functional
+一、分类
+1、算数仿函数
+加plus<typename> 、减minus<typename>
+乘multiplies<typename>、除divides<typename>
+取模modulus<typename>、取反negate<typename>
 
+2、关系仿函数
+等于bool equal_to<typename>、不等于bool not_equal_to<typename>
+大于bool greater<tpyename>、小于bool less<tpyename>
+上面的sort还可以这样用：
+sort(v.begin(),v.end(),greater<int>());
+3、逻辑仿函数
+逻辑与bool logical_and(typename)
+逻辑非bool logical_not(typename)
+逻辑或bool logical_or(typename)
 
 
