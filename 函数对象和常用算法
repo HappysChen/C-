@@ -64,9 +64,47 @@ transform(iterator beg1,iterator beg2,iterator beg2,_func)//搬运容器到另�
 注意：目标容器要提前开辟空间，可以用resize()
 2、常用查找算法
 find()     // 查找元素 返回迭代器
-find_if()  //按条件查找元素
-adjacent_find() //查找相邻重复元素
-binary_search() //二分查找法
+
+  class person
+  {
+    public:
+    person(string name,int Age):Name(name),age(Age){}
+    bool operator==(const person &p)
+    {
+      if(this.Name==p.Name && this.age==p.age) //传进来的与类中的比较
+        return true;
+      else
+        return false;
+    }
+    int age;
+    string Name;
+  };
+  使用：vector<person>::iterator ite=find(v.beg1,v.beg2，person);//
+find_if()  //按条件查找元素  返回迭代器
+//内置数据类型
+class greaterfive{
+  bool operator()(int val)
+  {
+   return val>5;
+  }
+};
+//自定义数据类型
+类中的只需有重载函数即可，变成一个仿函数：
+class greater20{
+  bool operator()(const person &p)
+  {
+   if(p.age>20)
+      return true;
+   else 
+      return false;
+      //或 return p.age>20;
+  }
+};
+使用:
+find_if(v.beg1,v.beg2,greater20());
+
+adjacent_find(iterator beg1,iterator beg2) //查找相邻且重复元素，返回迭代器
+binary_search(iterator beg1,iterator beg2，val) //二分查找法，查找指定元素是否存在,容器必须是有序的序列，找到返回true, 否则返回false
 count ()        //统计元素的个数
 count_if()      //按条件统计元素个数
 
