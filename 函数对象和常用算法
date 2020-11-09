@@ -150,6 +150,7 @@ set_intersection(iv1.begin(),iv1.end(),iv2.begin(),iv2.end (),vTarget.begin());/
                    //目标函数也要提前开辟空间,源容器必须是有序的
 set_union(iv1.begin(),iv1.end(),iv2.begin(),iv2.end (),vTarget.begin());//两个元素的并集，返回迭代器
                  //目标函数也要提前开辟空间,源容器必须是有序的
-
-
+set_difference（iv1.begin(),iv1.end(),iv2.begin(),iv2.end (),vTarget.begin()）//两个元素的差集，返回迭代器
+               //目标函数也要提前开辟空间（要考虑到当两个容器都没有相同部分时，即他们的差集就是这两个容器的最大值）；
+               //源容器必须是有序的，V1与V2的差集和V2与V1的差集有可能是不一样的
 
