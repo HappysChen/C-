@@ -105,8 +105,40 @@ find_if(v.beg1,v.beg2,greater20());
 
 adjacent_find(iterator beg1,iterator beg2) //查找相邻且重复元素，返回迭代器
 binary_search(iterator beg1,iterator beg2，val) //二分查找法，查找指定元素是否存在,容器必须是有序的序列，找到返回true, 否则返回false
-count ()        //统计元素的个数
+count ()        //统计元素的个数,返回一个整型数据
+//自定义数据类型
+class person
+  {
+    public:
+    person(string name,int Age):Name(name),age(Age){}
+    bool operator==(const person &p)
+    {
+      if(this.age==p.age) //传进来的与类中的比较
+        return true;
+      else
+        return false;
+    }
+    int age;
+    string Name;
+  };
+  使用：查找与person pp("abc",20)年龄相同的人数;
+  int num=count (iterator beg1,iterator beg2,pp);
+  
 count_if()      //按条件统计元素个数
+用法跟find_if()的一样；
+
+3、常用的排序算法
+sort();//默认是升序，没有返回值
+更改排序顺序，需用仿函数，如之前所用
+random_shuffle();//随机排序,打乱顺序
+merge(iterator1 beg1,iterator1 beg2，iterator2 beg21,iterator2 beg22,iterator2 result);  
+  //将两个容器元素合并，并存储到另一个容器中，容器的元素必须是有序的
+   //result 为目标容器,要提前开辟空间
+reverse();//反转函数
+copy();//拷贝
+replace();//替换
+
+
 
 
 
