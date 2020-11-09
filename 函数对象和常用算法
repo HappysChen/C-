@@ -136,9 +136,9 @@ merge(iterator1 beg1,iterator1 beg2，iterator2 beg21,iterator2 beg22,iterator2 
    //result 为目标容器,要提前开辟空间
 reverse();//反转函数
 copy();//拷贝
-replace();//替换
-
-
+replace(iterator1 beg1,iterator1 beg2，val_1,val_2);//替换,val_1是要替换的，val_2是要替换成的
+replace_if();//按条件替换，使用仿函数来实现
+swap();//交换两个容器的元素操作
 
 
 
