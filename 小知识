@@ -32,4 +32,7 @@ getline(cin,temp);
    而不应是：cin>>n>>m;
             while(n>0 && m>0)
 	    {}//这样当你输入的n和m都是大于0时，会一直循环括号里面的语句
-四、C/C++中函数返回值只能返回一个参数，要返回多个参数，可用struct 来接收或者指针
+五、C/C++中函数返回值只能返回一个参数，要返回多个参数，可用struct 来接收或者指针
+六、关于计算程序执行的时间
+了解浏览网站：https://www.cnblogs.com/wfwenchao/p/5195022.html
+计算时间调用库函数：ctime,再用里面的clock_t 定义start，end两个参数，然后用（double）(end-start)/ CLOCKS_PER_SEC;
