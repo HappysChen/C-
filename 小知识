@@ -36,3 +36,9 @@ getline(cin,temp);
 六、关于计算程序执行的时间
 了解浏览网站：https://www.cnblogs.com/wfwenchao/p/5195022.html
 计算时间调用库函数：ctime,再用里面的clock_t 定义start，end两个参数，然后用（double）(end-start)/ CLOCKS_PER_SEC;
+七、动态分配内存
+  动态分配内存是一个十分重要的技术，在程序中，使用动态内存分配，可以很好的应用分配器，同时避免使用硬编程（固定数组的内存大小），
+从而造成资源浪费和增大程序的内存压力。
+因此，在程序使用动态内存分配的方法：如一个数组，知道其n的值，则array=（int *）malloc(n*sizeof(int));注意：程序结束前，要进行释放，free，或者delete(搭配new)
+malloc 不会对开辟的内存对象进行初始化，要使其初始化可以使用 calloc,初始化为0；
+想改变内存的大小，可以使用realloc。
