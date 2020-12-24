@@ -21,7 +21,6 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    uint16_t sin_port;    //端口
    struct in_addr sin_addr; //IP地址
    unsigned char sin_zero[8]; //存放
-   
    };
   
    struct sockaddr {  //大端口套接字地址结构体，用来 连接connect、链接bind、接收accept
