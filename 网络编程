@@ -12,7 +12,37 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    一个套接字是连接的一个端点，每个套接字都有对应的套接字地址，由一个因特网地址和一个16位的整数端口组成，地址：端口，来表示。
    一个连接是由它两端的套接字地址唯一确定的，成为套接字对：(cliaddr:cliport,servaddr:servport);cliaddr是客户端的IP，cliport是端口，为临时端口，servaddr是服务器的IP，servport是端口。、
 1.4 套接字接口
-
+   套接字接口是一组函数，将系统的I/O函数结合起来，从而创建网络应用；
+ 1.4.1 地址结构
+   从Linux内核来看，一个套接字就是一个通信的端点，从程序来看，套接字就是一个有相应描述符的打开文件；
+   IP 套接字地址存放在如下结构体中：
+   struct socketddr_in {   //IP地址存放结构体
+   uint16_t sin_family ; //协议族
+   uint16_t sin_port;    //端口
+   struct in_addr sin_addr; //IP地址
+   unsigned char sin_zero[8]; //存放
+   
+   };
+  
+   struct sockaddr {  //大端口套接字地址结构体，用来 连接connect、链接bind、接收accept
+   uint16_t sa_family; //协议族
+   char sa_data[14];  //地址数据
+   };
+ 1.4.2 socket函数
+   客户端和服务端使用socket函数来创建一个套接字描述符。
+   #include<sys/types.h>
+   #include<sys/socket.h>
+   
+   int socket(int domain ,int type, int protocol);
+   要成为一个连接的端点，需用硬编码来调用socket函数：
+   clientfd=Socket(AF_INET, SOCK_STREAM, 0);
+   其中，AF_INET----32为IP地址，SOCK_STREAM表示这个套接字是一个连接的一个端点。
+ 1.4.3 connect函数
+   客户端通过调用connect函数来建立和服务器的连接。
+   
+   
+   
+   
 
 
 
