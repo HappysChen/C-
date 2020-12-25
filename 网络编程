@@ -23,7 +23,7 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    unsigned char sin_zero[8]; //存放
    };
   
-   struct sockaddr {  //大端口套接字地址结构体，用来 连接connect、链接bind、接收accept
+   struct sockaddr {  //大端口套接字地址结构体，用来 连接connect、绑定bind、接收accept
    uint16_t sa_family; //协议族
    char sa_data[14];  //地址数据
    };
@@ -39,9 +39,25 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
  1.4.3 connect函数
    客户端通过调用connect函数来建立和服务器的连接。
    #include<sys/socket.h>
-    int connect(int clientfd,const struct sockaddr *addr,socklen_t addrlen);
-    其中，connect 函数试图与套接字地址为addr的服务器建立一个因特网连接，其中addrlen是sizeof（sockaddr_in）。函数会有阻塞，直到连接成功时，clientfd描述符准备可以读写，
+   int connect(int clientfd,const struct sockaddr *addr,socklen_t addrlen);
+   其中，connect 函数试图与套接字地址为addr的服务器建立一个因特网连接，其中addrlen是sizeof（sockaddr_in）。函数会有阻塞，直到连接成功时，clientfd描述符准备可以读写，
  得到一个套接字对，见上述。
+ 1.4.4 bind函数
+   #include<sys/socket.h>
+   int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen); 
+   bind函数通知内核将addr中的服务器套接字地址和套接字描述符sockfd联系起来。参数addrlen就是sizeof（sockaddr_in）。
+ 1.4.5 listen函数
+   客户端是发起连接请求的主动实体，服务器是等待来自客户端的链接请求的被动实体。
+   #include<sys/socket.h>
+   intolisten(int sockfd, int backlog);
+   listen 函数将sockfd从一个主动套接字转化为一个监听套接字，可以接收来自客户端的连接请求。backlog暗示了内核在开始拒绝连接请求之前，队列中要排队的未完成的连接请求的数量。
+   
+ 1.4.6 accept函数
+   服务器通过调动accept函数来等待来自客户端的连接请求。
+   #include<sys/socket.h>
+   int accept(int listenfd, struct sockaddr *addr,int addrlen);
+   等待来自侦听描述符listenfd,然后在addr中填写客户端的套接字地址，并返回一个已连接描述符，用来与客户端连接。
+    
    
    
 
