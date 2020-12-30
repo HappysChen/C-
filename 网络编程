@@ -1,4 +1,4 @@
-  一、IP因特网
+一、IP因特网
     因特网的客户端和服务端混合使用套接字借口函数和Unix I/O函数来进行通信；将套接字函数实现为系统调用，这些系统会陷入内核，并调用各种内核,并调用各种内核模式的TCP/IP函数。
 TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供基本的命名方法和递送机制，该机制可以通过因特网主机向其他主机发送包，这种包成为数据包；通过UDP（不可靠数据包协议）扩展IP，缓解其机制的不可靠；
 使包可以在进程间传送而不是主机间；TCP提供了进程间可靠地全双工连接。
@@ -57,10 +57,37 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    #include<sys/socket.h>
    int accept(int listenfd, struct sockaddr *addr,int addrlen);
    等待来自侦听描述符listenfd,然后在addr中填写客户端的套接字地址，并返回一个已连接描述符，用来与客户端连接。
+  
+  
+ 知识补充：
+   TCP/ip协议规定，网络数据流应采用大端字节序，即低地址高字节。主机用的是小端法
+   小端法： （pc本地存储），低位存高地址，高位存低地址
+   大端法： （网络存储），高位存低地址，低位存高地址
+   字节转换相关函数：
+   htonl-->本地--》网络（IP协议） //h代表本地字节，n代表网络，l代表32位转换的字节数
+   htons-->本地--》网络（port） //s代表short,两个字节，端口就是两个字节
+   ntohl-->网络--》本地（IP）  //将网络转换成本地字节，即IP地址
+   ntohs-->网络--》本地（port）
+   
+   IP 地址转换函数
+      int_inet_pton(int af,const char *src, void *dst); 将本地字节序(string型)转换成网络字节序（二进制型）
+         af ：AF_INET、AF_INET6
+         src:传入，IP地址（点分十进制）
+         dst:传出，转换后的网络字节序IP地址
+         返回值：
+              成功：1
+              异常：0，说明src指向的不是一个有效的IP地址
+              失败：-1
+      
+      const char*inet_ntop(int af,const void *src, char * dst,socklen_t size);//将网络字节序转换成本地字节序   
+         af ：AF_INET、AF_INET6
+         src:传入，网络字节序IP地址（点分十进制）
+         dst:传出，本地字节序IP地址 （string IP）缓冲区
+         size：dst的大小
+         返回值：
+              成功：dst
+              失败：NULL
     
-   
-   
-
 
 
 
