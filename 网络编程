@@ -33,8 +33,7 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    客户端和服务端使用socket函数来创建一个套接字描述符。
    【***】一个客户端和一个服务器通信的话，一共有三个套接字，一个(服务器端的)是用来建立通信连接，调用accept函数后返回给新的socket（即新的套接字），则第二个套接字就可以客户端（即第三个套接字）进行连接了
    #include<sys/types.h>
-   #include<sys/socket.h>
-   
+   #include<sys/socket.h> 
    int socket(int domain ,int type, int protocol);//创建一个套接字
    要成为一个连接的端点，需用硬编码来调用socket函数：
      domain 指选用IP地址协议，即AF_INET、AF_INET6、AF_UNIX
@@ -140,7 +139,26 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
          bind（fd,(struct sockaddr *)&addr,size）；
         
 
-
+TCP通信流程分析：
+        server:
+             1、socket()  创建socket
+             2、bind()    绑定服务器地址结构
+             3、listen()  设置监听客户端连接
+             4、accept()  阻塞监听客户端连接
+             5、read(fd)  读socket获取客户端数据
+             6、小--大写   toupper()
+             7、write(fd) 
+             8、close（） 
+        client：
+             1、socket()    创建socket
+             2、connect()   与服务器建立连接
+             3、write()     写数据到socket
+             4、read()      读转换后的数据
+             5、显示读取结果
+             6、close()
+              
+             
+             
 
 
 
