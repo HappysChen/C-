@@ -31,11 +31,15 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    };
  1.4.2 socket函数
    客户端和服务端使用socket函数来创建一个套接字描述符。
+   【***】一个客户端和一个服务器通信的话，一共有三个套接字，一个(服务器端的)是用来建立通信连接，调用accept函数后返回给新的socket（即新的套接字），则第二个套接字就可以客户端（即第三个套接字）进行连接了
    #include<sys/types.h>
    #include<sys/socket.h>
    
-   int socket(int domain ,int type, int protocol);
+   int socket(int domain ,int type, int protocol);//创建一个套接字
    要成为一个连接的端点，需用硬编码来调用socket函数：
+   domain 指选用IP地址协议，即AF_INET、AF_INET6、AF_UNIX
+   type 数据传输协议:SOCK_STREAM、SOCK_DGRAM
+   protocol 
    clientfd=Socket(AF_INET, SOCK_STREAM, 0);
    其中，AF_INET----32为IP地址，SOCK_STREAM表示这个套接字是一个连接的一个端点。
  1.4.3 connect函数
@@ -51,15 +55,15 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
  1.4.5 listen函数
    客户端是发起连接请求的主动实体，服务器是等待来自客户端的链接请求的被动实体。
    #include<sys/socket.h>
-   intolisten(int sockfd, int backlog);
+   int listen(int sockfd, int backlog);
    listen 函数将sockfd从一个主动套接字转化为一个监听套接字，可以接收来自客户端的连接请求。backlog暗示了内核在开始拒绝连接请求之前，队列中要排队的未完成的连接请求的数量。
-   
+   设置监听上限
  1.4.6 accept函数
    服务器通过调动accept函数来等待来自客户端的连接请求。
    #include<sys/socket.h>
    int accept(int listenfd, struct sockaddr *addr,int addrlen);
    等待来自侦听描述符listenfd,然后在addr中填写客户端的套接字地址，并返回一个已连接描述符，用来与客户端连接。
-  
+   阻塞监听客户端连接
   
  知识补充：
    TCP/ip协议规定，网络数据流应采用大端字节序，即低地址高字节。主机用的是小端法
@@ -99,7 +103,7 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
         addr.sin_addr.s_addr = dst;
         【*】addr.sin_addr.s_addr = htonl(INADDR_ANY);（常用这种方法）  //取出系统中有效的任意IP地址。二进制类型
          bind（fd,(struct sockaddr *)&addr,size）；
-
+        
 
 
 
