@@ -60,6 +60,7 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
  得到一个套接字对，见上述。
  1.4.4 bind函数
    #include<sys/socket.h>
+   #include<arpa/inet.h>
    int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen); //给socket绑定一个地址结构 （IP+port）
        sockfd:socket 函数返回值
           struct sockaddr_in addr;
