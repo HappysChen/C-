@@ -37,33 +37,68 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    
    int socket(int domain ,int type, int protocol);//创建一个套接字
    要成为一个连接的端点，需用硬编码来调用socket函数：
-   domain 指选用IP地址协议，即AF_INET、AF_INET6、AF_UNIX
-   type 数据传输协议:SOCK_STREAM、SOCK_DGRAM
-   protocol 
+     domain 指选用IP地址协议，即AF_INET、AF_INET6、AF_UNIX
+     type 数据传输协议:SOCK_STREAM、SOCK_DGRAM
+     protocol ：0
+   返回值：
+       成功：新套接字所对应文件描述符
+       失败：-1 errno 
    clientfd=Socket(AF_INET, SOCK_STREAM, 0);
    其中，AF_INET----32为IP地址，SOCK_STREAM表示这个套接字是一个连接的一个端点。
  1.4.3 connect函数
    客户端通过调用connect函数来建立和服务器的连接。
    #include<sys/socket.h>
-   int connect(int clientfd,const struct sockaddr *addr,socklen_t addrlen);
+   int connect(int clientfd,const struct sockaddr *addr,socklen_t addrlen); //使用现有的socket函数与服务器建立连接
+       clientfd：socket函数返回值
+       addr:传入参数，服务器的地址结构
+       addrlen:服务器的地址结构的大小
+       
+   返回值：
+          成功：0
+          失败：-1 errno
+      如果不使用bind绑定客户端地址结构，采用“隐式绑定”，系统自动分配
    其中，connect 函数试图与套接字地址为addr的服务器建立一个因特网连接，其中addrlen是sizeof（sockaddr_in）。函数会有阻塞，直到连接成功时，clientfd描述符准备可以读写，
  得到一个套接字对，见上述。
  1.4.4 bind函数
    #include<sys/socket.h>
-   int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen); 
+   int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen); //给socket绑定一个地址结构 （IP+port）
+       sockfd:socket 函数返回值
+          struct sockaddr_in addr;
+          addr.sin_family = AF_INET;
+          addr.sin_port = htons(端口号);
+             addr.sin_addr.s_addr = htonl(INADDR_ANY)；//可以任意获取端口号
+          addr：(struct sockaddr*)&addr
+          addrlen:sizeof(addr)；//地址结构的大小
+       返回值：
+          成功：0
+          失败：-1 errno
+          
    bind函数通知内核将addr中的服务器套接字地址和套接字描述符sockfd联系起来。参数addrlen就是sizeof（sockaddr_in）。
  1.4.5 listen函数
    客户端是发起连接请求的主动实体，服务器是等待来自客户端的链接请求的被动实体。
    #include<sys/socket.h>
    int listen(int sockfd, int backlog);
+   sockfd：socket函数返回值
+   backlog：上限数值，最大值为128
+   返回值：
+          成功：0
+          失败：-1 errno
+   
    listen 函数将sockfd从一个主动套接字转化为一个监听套接字，可以接收来自客户端的连接请求。backlog暗示了内核在开始拒绝连接请求之前，队列中要排队的未完成的连接请求的数量。
    设置监听上限
  1.4.6 accept函数
    服务器通过调动accept函数来等待来自客户端的连接请求。
    #include<sys/socket.h>
-   int accept(int listenfd, struct sockaddr *addr,int addrlen);
+   int accept(int listenfd, struct sockaddr *addr,int addrlen);阻塞等待客户端建立连接，成功的话，返回一个与客户端成功连接的socket文件描述符
+          sockfd:socket函数返回值，
+          addr:传出参数。成功与服务器建立连接的那个客户端的地址结构（IP+port）
+          addrlen:传入传出。&clit_addr_len
+                  入：addr的大小，出：客户端addr实际大小
+    返回值：
+         成功：能与服务器进行数据通信的socket对应的文件描述
+         失败：-1 errno
    等待来自侦听描述符listenfd,然后在addr中填写客户端的套接字地址，并返回一个已连接描述符，用来与客户端连接。
-   阻塞监听客户端连接
+   【阻塞】监听客户端连接
   
  知识补充：
    TCP/ip协议规定，网络数据流应采用大端字节序，即低地址高字节。主机用的是小端法
