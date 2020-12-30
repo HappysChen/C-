@@ -17,14 +17,16 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
    从Linux内核来看，一个套接字就是一个通信的端点，从程序来看，套接字就是一个有相应描述符的打开文件；
    IP 套接字地址存放在如下结构体中：
    struct socketddr_in {   //IP地址存放结构体
-   uint16_t sin_family ; //协议族
-   uint16_t sin_port;    //端口
-   struct in_addr sin_addr; //IP地址
+   uint16_t sin_family ; //协议地址类型，AF_INET、AF_INET6
+   uint16_t sin_port;    //16位端口
+   struct in_addr sin_addr; //32位IP地址
    unsigned char sin_zero[8]; //存放
    };
-  
+   struct in_addr {
+      uint32_t  s_addr; //网络地址字节序
+   }
    struct sockaddr {  //大端口套接字地址结构体，用来 连接connect、绑定bind、接收accept
-   uint16_t sa_family; //协议族
+   uint16_t sa_family; //协议地址类型，AF_INET、AF_INET6
    char sa_data[14];  //地址数据
    };
  1.4.2 socket函数
@@ -88,6 +90,15 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
               成功：dst
               失败：NULL
     
+    sockaddr地址结构:
+        struct sockaddr_in addr;
+        addr.sin_family = AF_INET/AF_INET6
+        addr.sin_port = htons(9572);
+             int dst;
+             inet_pton(AF_INEt,"192.157.22.45",(void*)&dst);
+        addr.sin_addr.s_addr = dst;
+        【*】addr.sin_addr.s_addr = htonl(INADDR_ANY);（常用这种方法）  //取出系统中有效的任意IP地址。二进制类型
+         bind（fd,(struct sockaddr *)&addr,size）；
 
 
 
