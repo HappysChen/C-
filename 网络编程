@@ -157,7 +157,9 @@ TCP通信流程分析：
              4、read()      读转换后的数据
              5、显示读取结果
              6、close()
-              
+        客户端的读和写函数顺序刚好和服务器的相反，即读<-->写（服）
+        
+        刚开始编译成功，但client没有响应，主要是： inet_pton(AF_INET,"127.0.0.1",&serv_addr.sin_addr.s_addr);//传出部分serv_addr.sin_addr.s_addr应该是serv_addr.sin_addr
              
              
 
