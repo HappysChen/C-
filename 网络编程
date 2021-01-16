@@ -145,7 +145,7 @@ TCP/IP是一个协议族，每一个提供的功能都不一样；IP协议提供
         addr.sin_port = htons(9572);
              int dst;
              inet_pton(AF_INEt,"192.157.22.45",(void*)&dst);
-        addr.sin_addr.s_addr = dst;
+        addr.sin_addr.s_addr = dst;//32位无符号整数
         【*】addr.sin_addr.s_addr = htonl(INADDR_ANY);（常用这种方法）  //取出系统中有效的任意IP地址。二进制类型
          bind（fd,(struct sockaddr *)&addr,size）；
         
