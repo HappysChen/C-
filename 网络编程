@@ -190,6 +190,53 @@ TCP通信流程分析：
 
 三、多进程
    1、多进程并发服务器
+       1) Socket();  创建 监听套接字 lfd
+       2）Bind() ;   绑定地址结构 Struct sockaddr_in addr;
+       3）Listen();  设置监听上限
+       4) while(1) {
+          cfd=Accept();    接受客户端连接请求
+          pid = fork();    子进程
+          
+          if（pid == 0）{    子进程read(cfd)---小-->大 --- write(cfd) //但用不到lfd 需要对它关闭
+                  close (lfd);  关闭用于建立连接的套接字 lfd
+                  read()
+                  小--大 （转换）
+                  write(） 
+              }else if(pid >0) {
+                  close(cfd);    关闭用于与客户端通信的套接字 cfd
+                  while(1) {  
+                       waitpid(0, NULL,WNOHANG); //waitpid（）接收子进程, WNOHANG 表示不挂起不堵塞，该语句只能接收一个，要接受多个，需要循环,因此加入while(1)
+                           } //该循环放在这里不合适，因为当下一个进程过来时，前面 cfd 就接收不到 accept()
+                             //如果改为用 wait() 或者将 WNOHANG 改为 0，为堵塞，则后面的程序将不进行
+                             //解决：将 while 放到第 5 步
+                  continue;
+                  
+               }
+        }
+        
+        5）子进程，
+                close(lfd);
+                read（）；
+                小-->大 
+                write()
+          父进程：
+                close(cfd);
+                注册信号捕捉函数， SIGCHLD
+                在回调函数中，完成子进程回收
+                    while (waitpid());
+                    
+           
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    
 
 
