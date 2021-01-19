@@ -221,10 +221,31 @@ TCP通信流程分析：
                 write()
           父进程：
                 close(cfd);
-                注册信号捕捉函数， SIGCHLD
+                注册信号捕捉函数， SIGCHLD,  进程不能回收进程
                 在回调函数中，完成子进程回收
                     while (waitpid());
-                    
+
+     2、多线程并发服务器   service.c
+        1、Socket() ;   创建 监听套接字 lfd
+        2、Bind ()；    绑定地址结构 Struct sockaddr_in addr
+        3、Listen();    
+        4、while (1) {
+                cfd = Accept(lfd , );
+                pthread_create(&tid, NULL , tfn, NULL);
+                pthread_detach(tid);    //pthread_join （tid, void **）;新线程 -- 专用与回收子线程 ， 兄弟线程可以相互回收
+        5、子线程：
+               void ×tfn(void *arg)
+               {
+                     close (lfd);
+                     read(cfd);
+                     小-->大    ;   字符转换
+                     write (cfd);
+                     pthread_exit((void *)10);
+                }
+                
+                
+            
+       
            
     
     
