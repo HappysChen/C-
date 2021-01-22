@@ -234,7 +234,7 @@ TCP通信流程分析：
                 pthread_create(&tid, NULL , tfn, NULL);
                 pthread_detach(tid);    //pthread_join （tid, void **）;新线程 -- 专用与回收子线程 ， 兄弟线程可以相互回收
         5、子线程：
-               void ×tfn(void *arg)
+               void *tfn(void *arg)
                {
                      close (lfd);
                      read(cfd);
