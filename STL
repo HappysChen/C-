@@ -9,6 +9,9 @@
 (1)容器：
 一、vector
    1、创建vector模板类，要包含头文件vector，还要用<type>来表明对象的类型，以及动态分配内存，指明内存所需的矢量个数；
+      向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。
+      顺序容器中的元素按照严格的线性顺序排序。可以通过元素在序列中的位置访问对应的元素。
+2.动态数组
 include<vector>
 vector<int>Ratings(5);//创建int型的vector对象Ratings，里面的容量为5个时间复杂度是线性的
    2、其他成员函数
