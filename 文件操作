@@ -1,0 +1,51 @@
+一、关于文件的操作
+1、文件的读取
+  方法一：对于文件的读取有很多种，常见的是平时训练出现的，详细看以前的代码。
+   ifstream ifs;
+   ifs.open();
+   if(ifs.is_open())
+   {
+   
+   }
+   //读数据
+	/**** 方式一 ****/
+	/*
+	char buf[1024] = {0};
+	while (ifs >> buf)
+	{
+		cout << buf << endl;
+	}
+	*/
+	//方式二
+	/*
+	char buf[1024] = { 0 };
+	while (ifs.getline(buf,sizeof(buf))) //getline()用来获取行，buf是用来存放的，需要里面的空间大小
+	{
+		cout << buf << endl;
+	}
+	*/
+	//方式三
+	string buf;//用字符串的形式
+	while (getline(ifs, buf)) //ifs是文件流，buf是存入的字符串
+	{
+		cout << buf << endl;
+	}
+
+方法二：还有另一种特别方便 采用到sstream 中的stringstream
+  assert(ifs.is_open()); //确认打开文件
+  assert(getline(ifs,line));//读取文件中的一行内容放在line中
+  stringstream ss(line);//将line中的内容放在ss中
+  int a,b;
+  ss>>a>>b;//将ss中的内容解释出分别放在a和b中。
+  
+
+
+
+
+
+
+
+
+
+
+
